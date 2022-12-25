@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy with ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: ansible/deploy-mytyltyl-server.yaml
+          key: ${{secrets.MYTYLTYL_PEM}}
+          options: |
+            --inventory ansible/inventory
