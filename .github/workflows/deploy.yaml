@@ -10,7 +10,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           # Required, playbook filepath
-          playbook: ansible/deploy-mytyltyl-server.yaml
+          playbook: ./ansible/deploy-mytyltyl-server.yaml
           key: ${{secrets.MYTYLTYL_PEM}}
           options: |
-            --inventory ansible/inventory
+            --inventory ./ansible/inventory
