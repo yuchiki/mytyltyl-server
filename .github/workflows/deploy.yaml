@@ -6,11 +6,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: deploy with ansible playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: deploy-mytyltyl-server.yaml
-          directory: ./ansible
+          playbook: ./ansible/deploy-mytyltyl-server.yaml
           key: ${{secrets.MYTYLTYL_PEM}}
           options: |
             --inventory ./ansible/inventory
