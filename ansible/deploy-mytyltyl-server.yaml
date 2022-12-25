@@ -4,19 +4,23 @@
     - name: git pull
       git:
         repo: https://github.com/yuchiki/mytyltyl-server.git
-        dest: ~/mytyltyl-server
+        dest: /tmp/mytyltyl-server
+      register: mytyltyl_code
     - name: build
       make:
-        chdir: ~/mytyltyl-server
+        chdir: /tmp/mytyltyl-server
         target: build
+      when: mytyltyl_code.changed
     - name: copy to /usr/local/bin/mytyltyl-server
       copy:
-        src: ~/mytyltyl-server/out
+        src: /tmp/mytyltyl-server/out
         dest: /usr/local/bin/mytyltyl-server
         remote_src: yes
         unsafe_writes: true
-    - name: start mytyltyl
+      become: yes
+    - name: restart mytyltyl
       systemd:
         name: mytyltyl.service
-        state: restarted
+        state: started
         enabled: true
+      become: yes
