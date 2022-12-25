@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mytyltyl_server.Controllers
@@ -17,7 +18,7 @@ namespace mytyltyl_server.Controllers
         public VersionResponse Get()
         {
             Console.WriteLine("request");
-            return new VersionResponse { MajorVersion = 0, MinorVersion = 0, PatchVersion = 0, StartedAt = DateTime.Today };
+            return new VersionResponse { MajorVersion = 0, MinorVersion = 0, PatchVersion = 0, StartedAt = Process.GetCurrentProcess().StartTime };
         }
     }
 }
