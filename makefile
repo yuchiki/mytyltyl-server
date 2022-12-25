@@ -1,7 +1,7 @@
 
 .PHONY: build
 build:
-	dotnet publish -o /usr/local/bin/mytyltyl-server
+	dotnet publish -o out
 
 .PHONY: deploy
 deploy:

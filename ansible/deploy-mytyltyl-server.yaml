@@ -1,21 +1,22 @@
 - name: daemon reload
   hosts: mytyltyl
-  become: true
   tasks:
     - name: git pull
       git:
         repo: https://github.com/yuchiki/mytyltyl-server.git
         dest: ~/mytyltyl-server
-    - name: stop mytyltyl
-      systemd:
-        name: mytyltyl.service
-        state: stopped
     - name: build
       make:
         chdir: ~/mytyltyl-server
         target: build
+    - name: copy to /usr/local/bin/mytyltyl-server
+      copy:
+        src: ~/mytyltyl-server/out
+        dest: /usr/local/bin/mytyltyl-server
+        remote_src: yes
+        unsafe_writes: true
     - name: start mytyltyl
       systemd:
         name: mytyltyl.service
-        state: started
+        state: restarted
         enabled: true
