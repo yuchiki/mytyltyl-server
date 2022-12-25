@@ -4,7 +4,7 @@ After=network.service
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/mytyltyl-server/mytyltyl-server --urls http:mytyltyl.yuchiki.net:80
+ExecStart=/usr/local/bin/mytyltyl-server/mytyltyl-server --urls http://mytyltyl.yuchiki.net:80
 ExecStop=/bin/kill -WINCH ${MAINPID}
 Restart=always
 
