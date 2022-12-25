@@ -17,7 +17,7 @@ namespace mytyltyl_server.Controllers
         [HttpGet(Name = "GetVersion")]
         public VersionResponse Get()
         {
-            Console.WriteLine("request");
+            _logger.LogInformation("GetVersion");
             return new VersionResponse { MajorVersion = 0, MinorVersion = 0, PatchVersion = 0, StartedAt = Process.GetCurrentProcess().StartTime };
         }
     }
