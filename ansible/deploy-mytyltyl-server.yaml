@@ -1,0 +1,21 @@
+- name: daemon reload
+  hosts: mytyltyl
+  become: true
+  tasks:
+    - name: git pull
+      git:
+        repo: https://github.com/yuchiki/mytyltyl-server.git
+        dest: ~/mytyltyl-server
+    - name: stop mytyltyl
+      systemd:
+        name: mytyltyl.service
+        state: stopped
+    - name: build
+      make:
+        chdir: ~/mytyltyl-server
+        target: build
+    - name: start mytyltyl
+      systemd:
+        name: mytyltyl.service
+        state: started
+        enabled: true
