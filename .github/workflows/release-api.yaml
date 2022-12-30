@@ -1,0 +1,32 @@
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the release version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}.
+      - uses: actions/checkout@v3
+      - name: setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "7.0.x"
+      - name: install dependencies
+        run: |
+          dotnet restore
+      - name: build
+        run: |
+          dotnet build
+      - name: test
+        run: |
+          dotnet test
+        env:
+          RELEASE_VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - name: pack
+        run: |
+          dotnet pack mytyltyl-api -o mytyltyl-api-out
+      - name: Publish to Nuget
+        run: |
+          dotnet nuget push "mytyltyl-api-out/*.nupkg" --api-key ${{secrets.NUGET_YUCHIKI_KEY}} --source "https://api.nuget.org/v3/index.json" --skip-duplicate
