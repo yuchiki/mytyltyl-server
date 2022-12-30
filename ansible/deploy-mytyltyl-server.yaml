@@ -10,8 +10,8 @@
       make:
         chdir: /tmp/mytyltyl-server
         target: build
-        environment:
-          RELEASE_VERSION: "{{ release_version }}"
+      environment:
+        RELEASE_VERSION: "{{ release_version }}"
       when: mytyltyl_code.changed
     - name: copy to /usr/local/bin/mytyltyl-server
       copy:
