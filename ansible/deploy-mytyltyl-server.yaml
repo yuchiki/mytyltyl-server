@@ -21,6 +21,7 @@
     - name: restart mytyltyl
       systemd:
         name: mytyltyl.service
-        state: started
+        state: restarted
         enabled: true
+      when: mytyltyl_code.changed
       become: yes
