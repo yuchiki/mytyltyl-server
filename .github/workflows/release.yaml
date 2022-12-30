@@ -35,3 +35,4 @@ jobs:
           key: ${{secrets.MYTYLTYL_PEM}}
           options: |
             --inventory ./ansible/inventory
+            --extra-vars release_version=${{ github.event.release.tag_name }}
