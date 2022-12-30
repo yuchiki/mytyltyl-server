@@ -2,13 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>MytyltylApi</RootNamespace>
+    <RootNamespace>Yuchiki.MytyltylApi</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageId>MytyltylApi</PackageId>
-    <Version>0.0.1</Version>
+    <PackageId>Yuchiki.MytyltylApi</PackageId>
+    <Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
+    <VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.0.1</VersionPrefix>
+    <VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">$([System.DateTime]::UtcNow.ToString(`yyyyMMdd-HHmm`))</VersionSuffix>
     <Authors>Yuchiki</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(RELEASE_VERSION)' != ''">true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 

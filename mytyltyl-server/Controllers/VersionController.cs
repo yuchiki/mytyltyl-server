@@ -1,12 +1,14 @@
 using System.Diagnostics;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
-using MytyltylApi;
+using Yuchiki.MytyltylApi;
 
 namespace mytyltyl_server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class VersionController : ControllerBase
+    public partial class VersionController : ControllerBase
     {
         private readonly ILogger<VersionController> _logger;
 
@@ -19,7 +21,21 @@ namespace mytyltyl_server.Controllers
         public VersionResponse Get()
         {
             _logger.LogInformation("[{DT}] GET /Version", DateTime.UtcNow.ToLongTimeString());
-            return new VersionResponse { MajorVersion = 0, MinorVersion = 0, PatchVersion = 0, StartedAt = Process.GetCurrentProcess().StartTime };
+
+            var version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+
+            return new VersionResponse
+            {
+                MajorVersion = version.ProductMajorPart,
+                MinorVersion = version.ProductMinorPart,
+                PatchVersion = version.ProductBuildPart,
+                Suffix = version.ProductVersion == null ? "" : SuffixRegex().Match(version.ProductVersion).Value,
+                StartedAt = Process.GetCurrentProcess().StartTime
+            };
+
         }
+
+        [GeneratedRegex("(?<=-)(.*)")]
+        private static partial Regex SuffixRegex();
     }
 }

@@ -1,4 +1,4 @@
-namespace MytyltylApi
+namespace Yuchiki.MytyltylApi
 {
     public class VersionResponse
     {
@@ -6,6 +6,8 @@ namespace MytyltylApi
         public required int MajorVersion { get; init; }
         public required int MinorVersion { get; init; }
         public required int PatchVersion { get; init; }
-        public string FullVerison => $"{MajorVersion}.{MinorVersion}.{PatchVersion}";
+
+        public required string Suffix { get; init; }
+        public string FullVerison => $"{MajorVersion}.{MinorVersion}.{PatchVersion}{((Suffix == "") ? "" : "-" + Suffix)}";
     }
 }
