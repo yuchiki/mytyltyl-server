@@ -2,12 +2,9 @@ on:
   release:
     types: [published]
 jobs:
-  deploy:
+  release-api:
     runs-on: ubuntu-latest
     steps:
-      - name: Get the release version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}.
       - uses: actions/checkout@v3
       - name: setup .NET
         uses: actions/setup-dotnet@v1
@@ -22,11 +19,11 @@ jobs:
       - name: test
         run: |
           dotnet test
-        env:
-          RELEASE_VERSION: ${{ steps.get_version.outputs.VERSION }}
       - name: pack
         run: |
           dotnet pack mytyltyl-api -o mytyltyl-api-out
-      - name: Publish to Nuget
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+      - name: Publish API to Nuget
         run: |
           dotnet nuget push "mytyltyl-api-out/*.nupkg" --api-key ${{secrets.NUGET_YUCHIKI_KEY}} --source "https://api.nuget.org/v3/index.json" --skip-duplicate
