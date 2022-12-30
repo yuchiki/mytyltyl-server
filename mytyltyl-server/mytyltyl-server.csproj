@@ -13,7 +13,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    <PackageReference Include="Yuchiki.MytyltylApi" Version="0.0.4" />
+    <PackageReference Condition="'$(RELEASE_VERSION)' != ''" Include="Yuchiki.MytyltylApi" Version="$(RELEASE_VERSION)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Condition="'$(RELEASE_VERSION)' == ''" Include="..\mytyltyl-api\mytyltyl-api.csproj" />
   </ItemGroup>
 
 

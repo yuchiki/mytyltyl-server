@@ -12,7 +12,8 @@ jobs:
           dotnet-version: "7.0.x"
       - name: install dependencies
         run: |
-          dotnet restore
+          dotnet restore mytyltyl-server
+          dotnet restore mytyltyl-api
       - name: build
         run: |
           dotnet build --no-restore
