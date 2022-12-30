@@ -1,4 +1,4 @@
-namespace mytyltyl_server
+namespace MytyltylApi
 {
     public class VersionResponse
     {
