@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>mytyltyl_api</RootNamespace>
+    <RootNamespace>MytyltylApi</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>MytyltylApi</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Yuchiki</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
 </Project>
