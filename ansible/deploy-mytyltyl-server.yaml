@@ -13,6 +13,8 @@
       environment:
         RELEASE_VERSION: "{{ release_version }}"
       when: mytyltyl_code.changed
+      retries: 10 # API のuploadが終わっていない可能性があるため
+      delay: 60
     - name: copy to /usr/local/bin/mytyltyl-server
       copy:
         src: /tmp/mytyltyl-server/out
