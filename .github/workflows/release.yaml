@@ -15,15 +15,22 @@ jobs:
           dotnet restore
       - name: build
         run: |
-          dotnet build
+          dotnet build --no-restore
       - name: test
         run: |
-          dotnet test
+          dotnet test --no-restore
       - name: pack
         run: |
-          dotnet pack mytyltyl-api -o mytyltyl-api-out
+          dotnet pack mytyltyl-api -o mytyltyl-api-out --no-restore
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
       - name: Publish API to Nuget
         run: |
           dotnet nuget push "mytyltyl-api-out/*.nupkg" --api-key ${{secrets.NUGET_YUCHIKI_KEY}} --source "https://api.nuget.org/v3/index.json" --skip-duplicate
+      - name: deploy server with ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ./ansible/deploy-mytyltyl-server.yaml
+          key: ${{secrets.MYTYLTYL_PEM}}
+          options: |
+            --inventory ./ansible/inventory
