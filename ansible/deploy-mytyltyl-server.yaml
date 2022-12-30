@@ -17,7 +17,7 @@
       delay: 60
     - name: copy to /usr/local/bin/mytyltyl-server
       copy:
-        src: /tmp/mytyltyl-server/out
+        src: /tmp/mytyltyl-server/out/
         dest: /usr/local/bin/mytyltyl-server
         remote_src: yes
         unsafe_writes: true
