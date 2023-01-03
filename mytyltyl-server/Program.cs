@@ -6,12 +6,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddHttpsRedirection(options =>
-//{
-//    options.HttpsPort = 443;
-//});
-
-
 builder.Services
     .AddAuth0WebAppAuthentication(option =>
     {
@@ -42,10 +36,6 @@ if (app.Environment.IsDevelopment()) { }
 _ = app.UseSwagger();
 _ = app.UseSwaggerUI();
 _ = app.MapGet("/", (HttpContext context) => context.Response.Redirect("/swagger"));
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
