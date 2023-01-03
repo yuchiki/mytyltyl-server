@@ -1,7 +1,7 @@
 
 .PHONY: build
 build:
-	dotnet publish -o out
+	dotnet --self-contained publish -o out
 
 .PHONY: deploy
 deploy:

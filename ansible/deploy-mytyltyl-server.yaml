@@ -5,14 +5,12 @@
       git:
         repo: https://github.com/yuchiki/mytyltyl-server.git
         dest: /tmp/mytyltyl-server
-      register: mytyltyl_code
     - name: build
       make:
         chdir: /tmp/mytyltyl-server
         target: build
       environment:
         RELEASE_VERSION: "{{ release_version }}"
-      when: mytyltyl_code.changed
       retries: 10 # API のuploadが終わっていない可能性があるため
       delay: 60
     - name: copy to /usr/local/bin/mytyltyl-server
@@ -27,5 +25,4 @@
         name: mytyltyl.service
         state: restarted
         enabled: true
-      when: mytyltyl_code.changed
       become: yes
