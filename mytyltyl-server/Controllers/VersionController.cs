@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Yuchiki.MytyltylApi;
 
@@ -8,6 +9,7 @@ namespace mytyltyl_server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public partial class VersionController : ControllerBase
     {
         private readonly ILogger<VersionController> _logger;
@@ -39,3 +41,4 @@ namespace mytyltyl_server.Controllers
         private static partial Regex SuffixRegex();
     }
 }
+
