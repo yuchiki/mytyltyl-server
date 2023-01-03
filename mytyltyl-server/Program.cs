@@ -1,4 +1,6 @@
 using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.HttpOverrides;
+
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,11 @@ _ = app.UseDeveloperExceptionPage();
 
 
 app.UseStaticFiles();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedHost
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
