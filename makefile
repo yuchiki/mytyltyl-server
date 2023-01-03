@@ -1,7 +1,7 @@
 
 .PHONY: build
 build:
-	dotnet publidh --self-contained -o out
+	dotnet publish --self-contained -o out
 
 .PHONY: deploy
 deploy:
