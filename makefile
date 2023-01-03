@@ -1,7 +1,7 @@
 
 .PHONY: build
 build:
-	dotnet publish --self-contained -o out -p:EnvironmentName=Production
+	dotnet publish -o out
 
 .PHONY: deploy
 deploy:
