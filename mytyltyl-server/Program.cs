@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
+
 builder.Services
     .AddAuth0WebAppAuthentication(option =>
     {
@@ -25,9 +26,10 @@ _ = app.UseDeveloperExceptionPage();
 
 app.UseStaticFiles();
 
+// https://learn.microsoft.com/ja-jp/aspnet/core/host-and-deploy/linux-nginx?tabs=aspnetcore2x&view=aspnetcore-7.0
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
-    ForwardedHeaders = ForwardedHeaders.XForwardedHost
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
 app.UseAuthentication();
@@ -35,7 +37,10 @@ app.UseAuthorization();
 app.MapHealthChecks("/healthz");
 
 
-if (app.Environment.IsDevelopment()) { }
+if (!app.Environment.IsDevelopment())
+{
+    _ = app.UseHttpsRedirection();
+}
 
 
 _ = app.UseSwagger();
