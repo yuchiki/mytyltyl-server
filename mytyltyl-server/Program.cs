@@ -22,14 +22,10 @@ _ = app.UseDeveloperExceptionPage();
 
 app.UseStaticFiles();
 
-// 2. Enable authentication middleware
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseHttpsRedirection();
 
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) { }
 
 
