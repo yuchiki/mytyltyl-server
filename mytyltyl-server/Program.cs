@@ -1,4 +1,4 @@
-using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 
 
@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
-
+/*
 builder.Services
     .AddAuth0WebAppAuthentication(option =>
     {
@@ -17,6 +17,14 @@ builder.Services
         option.ClientId = builder.Configuration["Auth0:ClientID"]!;
     }
     );
+*/
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = builder.Configuration["Auth0:Domain"]!;
+                    options.Audience = builder.Configuration["Auth0:Audience"];
+                });
+
 
 WebApplication app = builder.Build();
 
