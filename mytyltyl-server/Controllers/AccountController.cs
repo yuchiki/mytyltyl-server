@@ -9,7 +9,7 @@ using Yuchiki.MytyltylApi;
 namespace mytyltyl_server.Controllers
 {
     [ApiController]
-    [Route("/")]
+    [Route("[controller]")]
     public class AccountController : Controller
     {
         [HttpGet("login")]
