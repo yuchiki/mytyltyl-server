@@ -23,6 +23,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 {
                     options.Authority = builder.Configuration["Auth0:Domain"]!;
                     options.Audience = builder.Configuration["Auth0:Audience"];
+                    options.RequireHttpsMetadata = false;
                 });
 
 
